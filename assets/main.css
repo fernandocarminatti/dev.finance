@@ -12,12 +12,12 @@ main {
 
 header {
     display: flex;
-    justify-content: center;
     width: 100vw;
     height: 100px;
     color: var(--color-mainWhite);
     justify-content: space-between;
     padding: 1.75rem;
+    margin: 0 auto;
 }
 
 header a {
@@ -28,6 +28,11 @@ header a {
 .wrap-header-link {
     display: flex;
     gap: 2rem;
+}
+
+.bMenu {
+    display: none;
+    fill: var(--color-mainWhite);
 }
 
 header span {
@@ -75,7 +80,7 @@ header span {
 
 .money {
     margin: .75rem 0 0 0;
-    font-size: 2.25rem;
+    font-size: clamp(16px, 9vw, 2.25rem);
     color: var(--color-darkerText);
 }
 
@@ -85,9 +90,7 @@ header span {
 }
 
 .total-wallet-money p, .total-wallet-money h2 {
-
     color: var(--color-mainWhite);
-
 }
 
 .pluses-and-minuses {
@@ -99,6 +102,7 @@ header span {
 }
 
 table {
+    width: 100%;
     border-collapse: separate; 
     border-spacing: 0 10px; 
     margin-top: -10px;
@@ -112,7 +116,7 @@ table tr {
 
 table th {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-lighterText);
     text-align: left;
     padding-left: 3.80rem;
@@ -121,7 +125,7 @@ table th {
 
 table td {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     background-color: var(--color-mainWhite);
     color: var(--color-darkerText);
     text-align: left;
@@ -148,4 +152,35 @@ td:last-child {
 
 .date {
     grid-area: Date;
+}
+
+@media only screen and (max-width:1024px) {
+
+    .wrap-header-link > a {
+        display: none;
+    }
+
+    .bMenu {
+        display: flex;
+    }
+
+    .wallet-section {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: -4.75rem auto auto auto;
+        width: 10vw;
+    }
+    
+    .wallet-section :nth-child(2) { order: 3; }
+    .wallet-section :nth-child(1) { order: 2; }
+    .wallet-section :nth-child(3) { order: 1; }
+
+    .info-block {
+        width: 70vw;
+    }
+
+    .pluses-and-minuses {
+        display: none;
+    }
 }
