@@ -14,5 +14,6 @@ html {
     --color-darkerText: #363F5F;
     --color-lighterText: #969CB2;
     --color-mainWhite: #FFFFFF;
+    --color-greenGlow: #64dd38;
     font-family: 'Poppins', sans-serif;
 }

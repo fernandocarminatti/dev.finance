@@ -1,8 +1,18 @@
-
+/*=================Generic=================*/
 main {
-    width: 100vw;
-    height: 100vh;
     background-color: var(--color-background);
+}
+
+body {
+    overflow-x: hidden;
+    width: 100vw;
+    background-color: var(--color-background);
+}
+
+/*=================Header=================*/
+
+.sr-only {
+    display: none;
 }
 
 .header-bg {
@@ -30,6 +40,10 @@ header a {
     gap: 2rem;
 }
 
+header a:hover {
+    text-shadow: 2px 3px 7px var(--color-darkerText);
+}
+
 .bMenu {
     display: none;
     fill: var(--color-mainWhite);
@@ -38,6 +52,8 @@ header a {
 header span {
     color: var(--color-green);
 }
+
+/*=================First Section Blocks=================*/
 
 .icon-img {
     height: 32px;
@@ -93,19 +109,30 @@ header span {
     color: var(--color-mainWhite);
 }
 
-.pluses-and-minuses {
-    margin: 2rem auto auto auto;
-    background-color: var(--color-mainWhite);
-    display: grid;
-    grid-template-areas: "Description" "Amount" "Date";
-    width: 60vw;
+/*=================Second Section Transactions =================*/
+
+#transactions {
+    margin: 3rem auto auto auto;
+    width: min(1150px, 80vw);
+}
+
+.add-transactions {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--color-green);
+    margin: 0 0 0 1.25rem;
+}
+
+.add-transactions:hover {
+    color: var(--color-greenGlow);
+    transition: .2s;
 }
 
 table {
+    margin: 10px auto;
     width: 100%;
     border-collapse: separate; 
     border-spacing: 0 10px; 
-    margin-top: -10px;
     background-color: var(--color-background);
 }
 
@@ -133,6 +160,14 @@ table td {
     line-height: 3.25rem;
 }
 
+td.income {
+    color: var(--color-green);
+}
+
+td.expense {
+    color: var(--color-red);
+}
+
 td:first-child {
     border-top-left-radius: 4px; 
     border-bottom-left-radius: 4px;
@@ -142,19 +177,152 @@ td:last-child {
     border-top-right-radius: 4px; 
 }
 
-.description {
-    grid-area: Description;
+.remove-icon {
+    height: 27px;
+    width: 27px;
+    margin: 0 auto;
+    vertical-align: middle;
+
 }
 
-.amount {
-    grid-area: Amount;
+.remove-icon:hover {
+    transform:scale(1.1);
+    filter: drop-shadow(0 0 0.45rem rgb(253, 152, 152));
 }
 
-.date {
-    grid-area: Date;
+/*=================Modal Section =================*/
+
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
 }
 
-@media only screen and (max-width:1024px) {
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-background);
+    padding: 2rem;
+    border-radius: 7px;
+
+    width: 560px;
+}
+
+.modal-container h2 {
+    margin: 0 0 1.3rem 0;
+    color: var(--color-darkerText);
+}
+
+
+form input {
+    margin: 0 0 .7rem 0;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+form input::placeholder {
+    font-weight: bolder;
+    font-family: 'Poppins', sans-serif;
+}
+
+#input-number {
+    margin: 0;
+}
+
+.input-help {
+    font-weight: bold;
+    font-size: 0.65rem;
+    color: var(--color-darkerText);
+    margin: 0 0 0 .2rem;
+}
+
+/* === Placeholder Styling test */
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: var(--color-darkerText);
+}
+
+/* === Regular Text Styling test */
+input[type="date"].date-input--has-value::-webkit-datetime-edit-text,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-month-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-day-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-year-field {
+    color: var(--color-darkerText);
+}
+
+#input-date {
+    margin: 0.6rem 0 0 0;
+}
+
+.button-container {
+    display: flex;
+    gap: 2rem;
+    margin: 1.75rem 0 0 0;
+}
+
+input[value="Cancelar"] {
+    background-color: transparent;
+    border: 2px solid rgba(248, 38, 38, 0.925);
+    color: rgba(248, 38, 38, 0.925);
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[value="Salvar"] {
+    background-color: var(--color-green);
+    color: var(--color-mainWhite);
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[value="Salvar"]:hover {
+    filter: drop-shadow(0 0 0.15rem var(--color-green));
+}
+
+input[value="Cancelar"]:hover {
+    filter: drop-shadow(0 0 0.005rem rgba(248, 38, 38, 0.925));
+}
+
+/*=================Footer=================*/
+
+footer{
+    margin: 0 auto;
+    text-align: center;
+    background-color: var(--color-background);
+    color: var(--color-mainWhite);
+    padding: 4rem 0 2rem;
+}
+
+footer span {
+    color: var(--color-green);
+}
+
+footer > h2 {
+    text-shadow: 2px 3px 7px var(--color-darkerText);
+}
+
+
+@media screen and (max-width:1024px) {
 
     .wrap-header-link > a {
         display: none;
@@ -180,7 +348,18 @@ td:last-child {
         width: 70vw;
     }
 
-    .pluses-and-minuses {
-        display: none;
+    #transactions {
+        width: 95vw;
+    }
+
+    table th {
+        padding-left: 0.80rem;
+        line-height: 1.25rem;
+    }
+    
+    table td {
+        height: 40px;
+        padding-left: 0.80rem;
+        line-height: 1.75rem;
     }
 }
