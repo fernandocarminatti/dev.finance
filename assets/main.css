@@ -207,7 +207,7 @@ td:last-child {
     visibility: hidden;
 }
 
-.modal-overlay.active {
+.modal-overlay.js-active {
     opacity: 1;
     visibility: visible;
     z-index: 999;

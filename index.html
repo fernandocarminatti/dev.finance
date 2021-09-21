@@ -41,21 +41,21 @@
                     <h2>Entradas</h2>
                     <img class="icon-img" src="assets/income.svg" alt="Arrow that represents money gain/income">
                 </div>
-                <p class="money" >R$<strong>00.000</strong>,00</p>
+                <p class="money inc-money"> >R$<strong>00.000</strong>,00</p>
             </div>
             <div class="spent info-block">
                 <div class="wallet-description">
                     <h2>Saídas</h2>
                     <img class="icon-img" src="assets/expense.svg" alt="Arrow that represents money spences/spent">
                 </div>
-                <p class="money" >R$<strong>00.000</strong>,00</p>
+                <p class="money exp-money" >R$<strong>00.000</strong>,00</p>
             </div>
             <div class="total-wallet-money info-block">
                 <div class="wallet-description">
                     <h2>Total</h2>
                     <img class="icon-img" src="assets/total.svg" alt="Arrow that represents total money in the wallet">
                 </div>
-                <p class="money" >R$<strong>00.000</strong>,00</p>
+                <p class="money total-money" >R$<strong>00.000</strong>,00</p>
             </div>
         </section>
         <section id="transactions">
@@ -73,50 +73,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="description"><strong>Aluguel</strong></td>
-                        <td class="amount expense"><strong>R$ -1.200,00</strong></td>
-                        <td class="date">15/09/2021</td>
-                        <td>
-                            <a href="#">
-                                <img class="remove-icon" src="assets/minus.svg" alt="Remove Transaction">
-                            </a>
-                      </td>
-                    </tr>
-                    <tr>
-                        <td class="description"><strong>Computador</strong></td>
-                        <td class="amount income"><strong>R$ 5.400,00</strong></td>
-                        <td class="date">15/09/2021</td>
-                        <td>
-                            <a href="#">
-                                <img class="remove-icon" src="assets/minus.svg" alt="Remove Transaction">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="description"><strong>Aluguel</strong></td>
-                        <td class="amount income"><strong>R$ 1.200,00</strong></td>
-                        <td class="date">15/09/2021</td>
-                        <td>
-                            <a class="rem-link" href="#">
-                            <img class="remove-icon" src="assets/minus.svg" alt="Remove Transaction">
-                            </a>
-                      </td>
-                    </tr>
+                    
                 </tbody>
               </table>
         </section>
     </main>
-    <section class="modal-overlay active">
+    <section class="modal-overlay">
         <div class="modal-container">
             <h2>Nova Transação</h2>
-            <form action="">
+            <form action="" onsubmit=Form.submit(event)>
                 <label for="input-desc" class="sr-only">Descrição</label><br>
                 <input
                     type="text"
                     id="input-desc" 
                     placeholder="Descrição">
-                
+
                 <label for="input-desc" class="sr-only">Amount</label><br>
                 <input 
                     type="number" 
@@ -124,9 +95,9 @@
                     step="0.01"
                     placeholder="R$ 0,00">
                 
-                <label for="input-desc" class="input-help">Use o Sinal - (negativo) para despesas e , (vírgula) para casas decimais</label>
+                <label for="input-number" class="input-help">Use o Sinal - (negativo) para despesas e , (vírgula) para casas decimais</label>
 
-                <label for="input-desc" class="sr-only">Date</label><br>
+                <label for="input-date" class="sr-only">Date</label><br>
                 <input
                     type="date"
                     id="input-date" 
@@ -134,7 +105,7 @@
                 
                 <div class="button-container">
                     <input type="button" value="Cancelar" onclick="modal.openOrClose()">
-                    <input type="button" value="Salvar" onclick="modal.openOrClose()">
+                    <input type="submit" value="Salvar">
                 </div>
             </form>
         </div>
@@ -142,12 +113,6 @@
     <footer>
         <h2>dev<span>.</span>finance$</h3>
     </footer>
-    <script>
-        const modal = {
-            openOrClose(){
-                document.querySelector('.modal-overlay').classList.toggle('active')
-            }
-        }
-    </script>
+    <script src="assets/script.js"></script>
 </body>
 </html>
