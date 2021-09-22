@@ -177,12 +177,11 @@ td:last-child {
     border-top-right-radius: 4px; 
 }
 
-.remove-icon {
+.remove-icon, .edit-icon {
     height: 27px;
     width: 27px;
     margin: 0 auto;
     vertical-align: middle;
-
 }
 
 .remove-icon:hover {
@@ -190,9 +189,14 @@ td:last-child {
     filter: drop-shadow(0 0 0.45rem rgb(253, 152, 152));
 }
 
+.edit-icon:hover {
+    transform:scale(1.1);
+    filter: drop-shadow(0 0 0.45rem rgb(100, 100, 100));
+}
+
 /*=================Modal Section =================*/
 
-.modal-overlay {
+.modal-overlay, .edit-modal-overlay {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
@@ -207,7 +211,7 @@ td:last-child {
     visibility: hidden;
 }
 
-.modal-overlay.js-active {
+.modal-overlay.js-active, .edit-modal-overlay.js-active {
     opacity: 1;
     visibility: visible;
     z-index: 999;
@@ -293,6 +297,7 @@ input[value="Salvar"] {
     color: var(--color-mainWhite);
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 
 input[value="Salvar"]:hover {

@@ -3,6 +3,9 @@
 const modal = {
     openOrClose(){
         document.querySelector('.modal-overlay').classList.toggle('js-active')
+    },
+    editOpenOrClose(){
+        document.querySelector('.edit-modal-overlay').classList.toggle('js-active')
     }
 }
 
@@ -33,10 +36,23 @@ const transactionMix = {
         runApp.reload()
     },
 
+    reAdd(newTransaction, index) {
+        transactionMix.all.splice(index, 1)
+        transactionMix.all.splice(index, 0, newTransaction)
+        runApp.reload()
+    },
+
     remove(index){
         transactionMix.all.splice(index, 1)
         
         runApp.reload()
+    },
+
+    editTransaction(index){
+        modal.editOpenOrClose()
+        Form.editValues(index)
+        let edit = document.querySelector('#edit-btn')
+        edit.addEventListener('click', () => Form.reSubmit(index), {once: true})
     },
 
     incomes() {
@@ -74,7 +90,7 @@ const transactionsView = {
         tr.innerHTML = transactionsView.innerHTMLTransactions(transaction, index)
         
         transactionsView.transactionsContainer.appendChild(tr)
-    
+        return tr
     },
 
     innerHTMLTransactions(transaction, index){
@@ -88,7 +104,9 @@ const transactionsView = {
             <td class="date">${transaction.date}</td>
             <td>
                 <a class="rem-link" href="#">
-                <img onclick= transactionMix.remove(${index}) class="remove-icon" src="assets/minus.svg" alt="Remove Transaction">
+                <svg onclick=transactionMix.editTransaction(${index}) class="edit-icon alt="Edit Transaction" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation"><path d="M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29"></path></svg>
+                </a>
+                <img onclick=transactionMix.remove(${index}) class="remove-icon" src="assets/minus.svg" alt="Remove Transaction">
                 </a>
             </td>
         `
@@ -143,25 +161,36 @@ const Form = {
     description: document.querySelector('input#input-desc'),
     amount: document.querySelector('input#input-number'),
     date: document.querySelector('input#input-date'),
+    ISODate: document.querySelector('input#input-date'),
+    newIndex: 0,
 
-    getValues(){
-        return{
-            description: Form.description.value,
-            amount: Form.amount.value,
-            date: Form.date.value,
+    editValues(index){
+        return {
+            description: document.querySelector('input#input-desc-edit').value = transactionMix.all[index].description,
+            amount: document.querySelector('input#input-number-edit').value = transactionMix.all[index].amount / 100,
+            date: document.querySelector('input#input-date-edit').value = transactionMix.all[index].ISODate,
         }
     },
 
-    validateFields(){
-        const { description, amount, date } = Form.getValues();
+    readValues(){
+        return{
+            description: document.querySelector('input#input-desc-edit').value,
+            amount: document.querySelector('input#input-number-edit').value,
+            date: document.querySelector('input#input-date-edit').value,
+            ISODate: document.querySelector('input#input-date-edit').value
+        }
+    },
+    
+    reValidateFields(){
+        const { description, amount, date, ISODate } = Form.readValues();
 
         if( description.trim() === "" || amount.trim() === "" || date.trim() === "") {
             throw new Error("Por favor, preencha todos os campos!")
         }
     },
 
-    formatValues(){
-        let { description, amount, date } = Form.getValues();
+    reFormatValues(){
+        let { description, amount, date, ISODate } = Form.readValues();
 
         amount = Utils.formatAmount(amount)
 
@@ -170,7 +199,40 @@ const Form = {
         return { 
             description,
             amount,
-            date
+            date,
+            ISODate
+         }
+    },
+
+    getValues(){
+        return{
+            description: Form.description.value,
+            amount: Form.amount.value,
+            date: Form.date.value,
+            ISODate: Form.date.value
+        }
+    },
+
+    validateFields(){
+        const { description, amount, date, ISODate } = Form.getValues();
+
+        if( description.trim() === "" || amount.trim() === "" || date.trim() === "" || ISODate.trim() === "" ) {
+            throw new Error("Por favor, preencha todos os campos!")
+        }
+    },
+
+    formatValues(){
+        let { description, amount, date, ISODate } = Form.getValues();
+
+        amount = Utils.formatAmount(amount)
+
+        date = Utils.formatDate(date)
+
+        return { 
+            description,
+            amount,
+            date,
+            ISODate
          }
     },
 
@@ -178,17 +240,37 @@ const Form = {
         Form.description.value = ""
         Form.amount.value = ""
         Form.date.value = ""
+        Form.ISODate.value = ""
+
+        document.querySelector('input#input-desc-edit').value = ""
+        document.querySelector('input#input-number-edit').value = ""
+        document.querySelector('input#input-date-edit').value = ""
+        document.querySelector('input#input-date-edit').value = ""
     },
 
     submit(event) {
         event.preventDefault();
 
-        try {
+            try {
             Form.validateFields();
             const newTransaction = Form.formatValues()
             transactionMix.add(newTransaction)
             Form.clearForm()
             modal.openOrClose()
+        }   catch (error) {
+            alert(error.message)
+        }
+        
+    },
+
+    reSubmit(index){
+
+        try {
+            Form.reValidateFields();
+            const newTransaction = Form.reFormatValues()
+            transactionMix.reAdd(newTransaction, index)
+            Form.clearForm()
+            modal.editOpenOrClose()
         }   catch (error) {
             alert(error.message)
         }
