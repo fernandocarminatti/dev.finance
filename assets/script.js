@@ -10,7 +10,7 @@ const modal = {
 
 const Storage = {
     get(){
-        return JSON.parse(localStorage.getItem("dev.finance:transactions")) || []
+        return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
     },
 
     set(transactions) {
@@ -115,7 +115,7 @@ const Utils = {
     formatAmount(value){
         value = Number(value) * 100
 
-        return value
+        return Math.round(value)
     },
 
     formatDate(date){
